@@ -44,13 +44,28 @@ public class ComputerPlayerTest {
     @Test
     void testPlayerSelectHit() throws Exception {
         int health = 30;
-        int mana = 4;
+        int mana = 5;
         int opponentHealth = 8;
         List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3);
 
-        Select resp = computerPlayer.playerSelect(health, mana, cardInHand, opponentHealth);
-        assertEquals(Action.HIT, resp.getAction());
-        assertEquals(3, resp.getCard().get().getValue());
+        List<Select> actual = new ArrayList<>();
+
+        while (mana > -1) {
+            Select resp = computerPlayer.playerSelect(health, mana, cardInHand, opponentHealth);
+            actual.add(resp);
+            mana-=1;
+        }
+
+        for(int i = 0; i <= 5; i++) {
+            assertEquals(Action.HIT, actual.get(i).getAction());
+        }
+
+        assertEquals(5, actual.get(0).getCard().get().getValue());
+        assertEquals(3, actual.get(1).getCard().get().getValue());
+        assertEquals(3, actual.get(2).getCard().get().getValue());
+        assertEquals(2, actual.get(3).getCard().get().getValue());
+        assertEquals(1, actual.get(4).getCard().get().getValue());
+
     }
 
     @DisplayName("Test player select hit and kill should return Action equals HIT and card point 9")
