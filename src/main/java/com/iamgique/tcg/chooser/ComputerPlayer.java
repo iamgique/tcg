@@ -32,9 +32,7 @@ public class ComputerPlayer implements ChoosePlayer {
         cardInHand.sort(Comparator.comparingDouble(Card::getValue).reversed());
 
         List<Card> selectCards = new ArrayList<>();
-        if(!cardInHand.isEmpty()){
-            getCombo(mana, cardInHand, selectCards);
-        }
+        getCombo(mana, cardInHand, selectCards);
         return selectCards.stream().max(Comparator.comparing(Card::getValue));
     }
 

@@ -1,6 +1,8 @@
 package com.iamgique.tcg.chooser;
 
+import com.iamgique.tcg.constants.Action;
 import com.iamgique.tcg.model.Card;
+import com.iamgique.tcg.model.Select;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,11 +18,6 @@ import static java.util.stream.Collectors.toCollection;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ComputerPlayerTest {
-
-    /*private Optional<Card> getHighestCard(int mana, List<Card> cardInHand) {
-        return cardInHand.stream().filter(c -> c.getValue() <= mana).max(Comparator.comparing(Card::getValue));
-    }*/
-
     @InjectMocks
     ComputerPlayer computerPlayer;
 
@@ -38,11 +35,48 @@ public class ComputerPlayerTest {
     @Test
     void testGetHighestCard() throws Exception {
         int mana = 8;
-        //while (true) {
-            List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3, 9);
-            Optional<Card> resp = computerPlayer.getHighestCard(mana, cardInHand);
-            assertEquals(5, resp.get().getValue());
-        //}
-
+        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3, 9);
+        Optional<Card> resp = computerPlayer.getHighestCard(mana, cardInHand);
+        assertEquals(5, resp.get().getValue());
     }
+
+    @DisplayName("Test player select hit")
+    @Test
+    void testPlayerSelectHit() throws Exception {
+        int health = 30;
+        int mana = 4;
+        int opponentHealth = 8;
+        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3);
+
+        Select resp = computerPlayer.playerSelect(health, mana, cardInHand, opponentHealth);
+        assertEquals(Action.HIT, resp.getAction());
+        assertEquals(3, resp.getCard().get().getValue());
+    }
+
+    @DisplayName("Test player select hit and kill should return Action equals HIT and card point 9")
+    @Test
+    void testPlayerSelectHitAndKill() throws Exception {
+        int health = 30;
+        int mana = 10;
+        int opponentHealth = 8;
+        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3, 9);
+
+        Select resp = computerPlayer.playerSelect(health, mana, cardInHand, opponentHealth);
+        assertEquals(Action.HIT, resp.getAction());
+        assertEquals(9, resp.getCard().get().getValue());
+    }
+
+    @DisplayName("Test player select heal should return Action equals HEAL and card point 9")
+    @Test
+    void testPlayerSelectHeal() throws Exception {
+        int health = 8;
+        int mana = 10;
+        int opponentHealth = 15;
+        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3, 9);
+
+        Select resp = computerPlayer.playerSelect(health, mana, cardInHand, opponentHealth);
+        assertEquals(Action.HEAL, resp.getAction());
+        assertEquals(9, resp.getCard().get().getValue());
+    }
+
 }
