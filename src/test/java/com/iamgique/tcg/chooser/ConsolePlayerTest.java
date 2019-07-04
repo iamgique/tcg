@@ -17,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toCollection;
@@ -86,8 +87,7 @@ public class ConsolePlayerTest {
     }
 
     @Test
-    public void testIOException() throws Exception {
-        //consoleInput.provideText("5");
+    public void testIOException() {
         consoleInput.throwExceptionOnInputEnd(new IOException());
 
         int health = 30;
@@ -96,6 +96,8 @@ public class ConsolePlayerTest {
         List<Card> cardInHand = prepareCardInHand(1, 9, 5, 3);
 
         Select resp = consolePlayer.playerSelect(health, mana, cardInHand, opponentHealth);
+        assertEquals(null, resp.getAction());
+        assertEquals(Optional.empty(), resp.getCard());
     }
 
 }
