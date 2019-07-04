@@ -102,6 +102,7 @@ public class PlayerTest {
     @Test
     public void testCheckPlayAbleWithoutManaShouldReturnFalse() {
         player.drawStartCard();
+        //*************
         assertFalse(player.checkPlayAble());
     }
 
