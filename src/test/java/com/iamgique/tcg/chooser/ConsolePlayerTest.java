@@ -40,9 +40,9 @@ public class ConsolePlayerTest {
         consolePlayer = new ConsolePlayer();
     }
 
-    private static List<Card> prepareCardInHand(Integer... values) {
+    /*private static List<Card> prepareCardInHand(Integer... values) {
         return stream(values).map(Card::new).collect(toCollection(ArrayList::new));
-    }
+    }*/
 
     @Test
     public void testPlayerSelectHitWithInputIsFiveShouldBeReturnHitFive() throws Exception {
@@ -51,7 +51,7 @@ public class ConsolePlayerTest {
         int health = 30;
         int mana = 10;
         int opponentHealth = 20;
-        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3);
+        List<Card> cardInHand = Card.list(1, 2, 5, 3);
 
         Select resp = consolePlayer.playerSelect(health, mana, cardInHand, opponentHealth);
         assertEquals(Action.HIT.toString(), resp.getAction().toString());
@@ -65,7 +65,7 @@ public class ConsolePlayerTest {
         int health = 30;
         int mana = 10;
         int opponentHealth = 20;
-        List<Card> cardInHand = prepareCardInHand(1, 9, 5, 3);
+        List<Card> cardInHand = Card.list(1, 9, 5, 3);
 
         Select resp = consolePlayer.playerSelect(health, mana, cardInHand, opponentHealth);
         assertEquals(Action.HEAL.toString(), resp.getAction().toString());
@@ -79,7 +79,7 @@ public class ConsolePlayerTest {
         int health = 30;
         int mana = 4;
         int opponentHealth = 20;
-        List<Card> cardInHand = prepareCardInHand(1, 9, 4, 3);
+        List<Card> cardInHand = Card.list(1, 9, 4, 3);
 
         Select resp = consolePlayer.playerSelect(health, mana, cardInHand, opponentHealth);
         assertEquals(Action.HIT.toString(), resp.getAction().toString());
@@ -93,7 +93,7 @@ public class ConsolePlayerTest {
         int health = 30;
         int mana = 10;
         int opponentHealth = 20;
-        List<Card> cardInHand = prepareCardInHand(1, 9, 5, 3);
+        List<Card> cardInHand = Card.list(1, 9, 5, 3);
 
         Select resp = consolePlayer.playerSelect(health, mana, cardInHand, opponentHealth);
         assertEquals(null, resp.getAction());

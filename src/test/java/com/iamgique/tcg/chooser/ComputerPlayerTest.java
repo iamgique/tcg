@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toCollection;
 import static org.junit.Assert.assertEquals;
 
 public class ComputerPlayerTest {
@@ -26,14 +24,14 @@ public class ComputerPlayerTest {
         computerPlayer = new ComputerPlayer();
     }
 
-    private static List<Card> prepareCardInHand(Integer... values) {
+    /*private static List<Card> prepareCardInHand(Integer... values) {
         return stream(values).map(Card::new).collect(toCollection(ArrayList::new));
-    }
+    }*/
 
     @Test
     public void testGetHighestCardWithEqualsOrLessThanManaShouldReturnHighestScore() throws Exception {
         int mana = 8;
-        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3, 9);
+        List<Card> cardInHand = Card.list(1, 2, 5, 3, 9);
         Optional<Card> resp = computerPlayer.getHighestCard(mana, cardInHand);
         assertEquals(5, resp.get().getValue());
     }
@@ -43,7 +41,7 @@ public class ComputerPlayerTest {
         int health = 30;
         int mana = 5;
         int opponentHealth = 8;
-        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3);
+        List<Card> cardInHand = Card.list(1, 2, 5, 3);
 
         List<Select> actual = new ArrayList<>();
 
@@ -70,7 +68,7 @@ public class ComputerPlayerTest {
         int health = 30;
         int mana = 10;
         int opponentHealth = 8;
-        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3, 9);
+        List<Card> cardInHand = Card.list(1, 2, 5, 3, 9);
 
         Select resp = computerPlayer.playerSelect(health, mana, cardInHand, opponentHealth);
         assertEquals(Action.HIT, resp.getAction());
@@ -82,7 +80,7 @@ public class ComputerPlayerTest {
         int health = 8;
         int mana = 10;
         int opponentHealth = 15;
-        List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3, 9);
+        List<Card> cardInHand = Card.list(1, 2, 5, 3, 9);
 
         Select resp = computerPlayer.playerSelect(health, mana, cardInHand, opponentHealth);
         assertEquals(Action.HEAL, resp.getAction());

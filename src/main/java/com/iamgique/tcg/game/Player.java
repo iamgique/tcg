@@ -103,12 +103,10 @@ public class Player {
         System.out.println(this.getName() + ": action: " + action + " amount: " + card);
         mana -= card.getValue();
         hand.remove(card);
-        if (action.equals(Action.HIT)) {
-            opponent.hit(card.getValue());
-        } else if (action.equals(Action.HEAL)) {
+        if(action.equals(Action.HEAL)){
             addHeal(card.getValue());
         } else {
-            throw new ResponseException("Error action: " + action);
+            opponent.hit(card.getValue());
         }
     }
 

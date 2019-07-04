@@ -10,7 +10,7 @@ public class Game {
     private Player opponentPlayer;
 
     public Game(Player player1, Player player2, RandomStarterPlayer randomStarterPlayer) {
-        activePlayer = randomStarterPlayer.choosePlayer(player1, player2);
+        activePlayer = randomStarterPlayer.randomStartPlayer(player1, player2);
         opponentPlayer = activePlayer == player1 ? player2 : player1;
 
         System.out.println("Random Card");

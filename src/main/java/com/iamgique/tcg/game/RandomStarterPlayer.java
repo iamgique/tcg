@@ -3,9 +3,8 @@ package com.iamgique.tcg.game;
 import java.util.Random;
 
 public class RandomStarterPlayer {
-    private Random random = new Random();
-
-    public Player choosePlayer(Player player1, Player player2) {
+    public Player randomStartPlayer(Player player1, Player player2) {
+        Random random = new Random();
         return random.nextBoolean() ? player1 : player2;
     }
 }
