@@ -19,17 +19,13 @@ public class ComputerPlayerTest {
     ComputerPlayer computerPlayer;
 
     @Before
-    public void init() throws Exception {
+    public void init() {
         MockitoAnnotations.initMocks(this);
         computerPlayer = new ComputerPlayer();
     }
 
-    /*private static List<Card> prepareCardInHand(Integer... values) {
-        return stream(values).map(Card::new).collect(toCollection(ArrayList::new));
-    }*/
-
     @Test
-    public void testGetHighestCardWithEqualsOrLessThanManaShouldReturnHighestScore() throws Exception {
+    public void testGetHighestCardWithEqualsOrLessThanManaShouldReturnHighestScore() {
         int mana = 8;
         List<Card> cardInHand = Card.list(1, 2, 5, 3, 9);
         Optional<Card> resp = computerPlayer.getHighestCard(mana, cardInHand);
@@ -37,7 +33,7 @@ public class ComputerPlayerTest {
     }
 
     @Test
-    public void testComputerSelectHit() throws Exception {
+    public void testComputerSelectHit() {
         int health = 30;
         int mana = 5;
         int opponentHealth = 8;
@@ -64,7 +60,7 @@ public class ComputerPlayerTest {
     }
 
     @Test
-    public void testComputerSelectHitAndKillShouldReturnActionEqualsHitAndCardNinePoint() throws Exception {
+    public void testComputerSelectHitAndKillShouldReturnActionEqualsHitAndCardNinePoint() {
         int health = 30;
         int mana = 10;
         int opponentHealth = 8;
@@ -76,7 +72,7 @@ public class ComputerPlayerTest {
     }
 
     @Test
-    public void testComputerSelectHealShouldReturnActionEqualsHealAndCardNinePoint() throws Exception {
+    public void testComputerSelectHealShouldReturnActionEqualsHealAndCardNinePoint() {
         int health = 8;
         int mana = 10;
         int opponentHealth = 15;

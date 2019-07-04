@@ -2,6 +2,7 @@ package com.iamgique.tcg.chooser;
 
 
 import com.iamgique.tcg.constants.Action;
+import com.iamgique.tcg.constants.Constant;
 import com.iamgique.tcg.model.Card;
 
 import com.iamgique.tcg.model.Select;
@@ -15,12 +16,9 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toCollection;
 import static org.junit.Assert.assertEquals;
 import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emptyStandardInputStream;
 
@@ -35,21 +33,17 @@ public class ConsolePlayerTest {
     public ExpectedException expectedEx = ExpectedException.none();
 
     @Before
-    public void init() throws Exception {
+    public void init() {
         MockitoAnnotations.initMocks(this);
         consolePlayer = new ConsolePlayer();
     }
 
-    /*private static List<Card> prepareCardInHand(Integer... values) {
-        return stream(values).map(Card::new).collect(toCollection(ArrayList::new));
-    }*/
-
     @Test
-    public void testPlayerSelectHitWithInputIsFiveShouldBeReturnHitFive() throws Exception {
+    public void testPlayerSelectHitWithInputIsFiveShouldBeReturnHitFive() {
         consoleInput.provideText("5");
 
-        int health = 30;
-        int mana = 10;
+        int health = Constant.MAX_HEALTH;
+        int mana = Constant.MAX_MANA;
         int opponentHealth = 20;
         List<Card> cardInHand = Card.list(1, 2, 5, 3);
 
@@ -59,11 +53,11 @@ public class ConsolePlayerTest {
     }
 
     @Test
-    public void testPlayerSelectHealWithInputIsNineShouldBeReturnHealNine() throws Exception {
+    public void testPlayerSelectHealWithInputIsNineShouldBeReturnHealNine() {
         consoleInput.provideText("9h");
 
-        int health = 30;
-        int mana = 10;
+        int health = Constant.MAX_HEALTH;
+        int mana = Constant.MAX_MANA;
         int opponentHealth = 20;
         List<Card> cardInHand = Card.list(1, 9, 5, 3);
 
@@ -73,10 +67,10 @@ public class ConsolePlayerTest {
     }
 
     @Test
-    public void testSelectHitCardWithInputAreNineIsNotEnoughAndThenInputZeroIsNotInHandAndThenInputForeShouldEnough() throws Exception {
+    public void testSelectHitCardWithInputAreNineIsNotEnoughAndThenInputZeroIsNotInHandAndThenInputForeShouldEnough() {
         consoleInput.provideLines("9", "0", "4");
 
-        int health = 30;
+        int health = Constant.MAX_HEALTH;
         int mana = 4;
         int opponentHealth = 20;
         List<Card> cardInHand = Card.list(1, 9, 4, 3);
@@ -90,8 +84,8 @@ public class ConsolePlayerTest {
     public void testIOException() {
         consoleInput.throwExceptionOnInputEnd(new IOException());
 
-        int health = 30;
-        int mana = 10;
+        int health = Constant.MAX_HEALTH;
+        int mana = Constant.MAX_MANA;
         int opponentHealth = 20;
         List<Card> cardInHand = Card.list(1, 9, 5, 3);
 

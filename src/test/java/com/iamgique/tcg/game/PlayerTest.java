@@ -2,7 +2,6 @@ package com.iamgique.tcg.game;
 
 import com.iamgique.tcg.chooser.ChoosePlayer;
 import com.iamgique.tcg.constants.Action;
-import com.iamgique.tcg.constants.Constant;
 import com.iamgique.tcg.exception.ResponseException;
 import com.iamgique.tcg.model.Card;
 import com.iamgique.tcg.model.Select;
@@ -12,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.*;

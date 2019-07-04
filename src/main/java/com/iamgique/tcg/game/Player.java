@@ -68,6 +68,7 @@ public class Player {
             hand.add(card);
             System.out.println(this + " draws card: " + card);
         } else {
+            System.out.println(this + " draws card: " + card);
             System.out.println(this.getName() + " The card is overloading then drop the card " + card.getValue());
         }
     }

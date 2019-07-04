@@ -6,12 +6,14 @@ import com.iamgique.tcg.chooser.ConsolePlayer;
 import com.iamgique.tcg.game.Game;
 import com.iamgique.tcg.game.RandomStarterPlayer;
 
+import java.util.Random;
+
 public class Main {
     public static void main(String... args) {
         new Game(
                 new Player("GIQUE", new ConsolePlayer()),
                 new Player("COMPUTER", new ComputerPlayer()),
-                new RandomStarterPlayer())
+                new RandomStarterPlayer(new Random()))
                 .start();
     }
 

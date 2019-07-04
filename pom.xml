@@ -113,8 +113,9 @@
                     <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
                     <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
                     <excludes>
-                        <exclude>com/iamgique/tgc/Main*</exclude>
-                        <exclude>com/iamgique/tgc/model/**</exclude>
+                        <exclude>com/iamgique/tcg/Main*</exclude>
+                        <exclude>com/iamgique/tcg/constants/Constant*</exclude>
+                        <!--<exclude>com/iamgique/tcg/model/**</exclude>-->
                     </excludes>
                 </configuration>
                 <executions>

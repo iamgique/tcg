@@ -2,8 +2,6 @@ package com.iamgique.tcg.game;
 
 import com.iamgique.tcg.exception.ResponseException;
 
-import java.util.Optional;
-
 public class Game {
 
     private Player activePlayer;
@@ -21,47 +19,41 @@ public class Game {
         opponentPlayer.drawCard();
     }
 
-    public void start() {
+    public String start() {
         while(true) {
             try {
-                checkWinner();
+                getWinner();
                 beginTurn();
                 while (activePlayer.checkPlayAble()) {
                     activePlayer.play(opponentPlayer);
                 }
-                checkWinner();
+                getWinner();
                 endTurn();
             } catch (ResponseException e) {
                 System.out.println(e.getMessage());
-                break;
+                return e.getMessage();
             }
         }
     }
 
-    public void beginTurn() {
+    private void beginTurn() {
         System.out.println(activePlayer.getName() + ": Begin turn...");
         activePlayer.addMana();
         activePlayer.drawCard();
     }
 
-    public void endTurn() {
+    private void endTurn() {
         System.out.println(activePlayer.getName() + ": End turn");
         Player temp = activePlayer;
         activePlayer = opponentPlayer;
         opponentPlayer = temp;
     }
 
-    private void checkWinner() {
-        Optional.ofNullable(getWinner()).ifPresent(s -> {
-            throw new ResponseException("The winner is: " + getWinner());
-        });
-    }
-
     private String getWinner(){
         if (activePlayer.getHealth() < 1) {
-            return opponentPlayer.getName();
+            throw new ResponseException("The winner is: " + opponentPlayer.getName());
         } else if (opponentPlayer.getHealth() < 1) {
-            return activePlayer.getName();
+            throw new ResponseException("The winner is: " + activePlayer.getName());
         } else {
             return null;
         }
