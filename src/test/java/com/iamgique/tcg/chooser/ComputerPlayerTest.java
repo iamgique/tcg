@@ -3,9 +3,8 @@ package com.iamgique.tcg.chooser;
 import com.iamgique.tcg.constants.Action;
 import com.iamgique.tcg.model.Card;
 import com.iamgique.tcg.model.Select;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 
@@ -15,14 +14,14 @@ import java.util.Optional;
 
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toCollection;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class ComputerPlayerTest {
     @InjectMocks
     ComputerPlayer computerPlayer;
 
-    @BeforeEach
-    public void setUp() {
+    @Before
+    public void init() throws Exception {
         MockitoAnnotations.initMocks(this);
         computerPlayer = new ComputerPlayer();
     }
@@ -31,18 +30,16 @@ public class ComputerPlayerTest {
         return stream(values).map(Card::new).collect(toCollection(ArrayList::new));
     }
 
-    @DisplayName("Test get highest card with equals or less than mana should return highest score")
     @Test
-    void testGetHighestCard() throws Exception {
+    public void testGetHighestCardWithEqualsOrLessThanManaShouldReturnHighestScore() throws Exception {
         int mana = 8;
         List<Card> cardInHand = prepareCardInHand(1, 2, 5, 3, 9);
         Optional<Card> resp = computerPlayer.getHighestCard(mana, cardInHand);
         assertEquals(5, resp.get().getValue());
     }
 
-    @DisplayName("Test player select hit")
     @Test
-    void testPlayerSelectHit() throws Exception {
+    public void testComputerSelectHit() throws Exception {
         int health = 30;
         int mana = 5;
         int opponentHealth = 8;
@@ -68,9 +65,8 @@ public class ComputerPlayerTest {
 
     }
 
-    @DisplayName("Test player select hit and kill should return Action equals HIT and card point 9")
     @Test
-    void testPlayerSelectHitAndKill() throws Exception {
+    public void testComputerSelectHitAndKillShouldReturnActionEqualsHitAndCardNinePoint() throws Exception {
         int health = 30;
         int mana = 10;
         int opponentHealth = 8;
@@ -81,9 +77,8 @@ public class ComputerPlayerTest {
         assertEquals(9, resp.getCard().get().getValue());
     }
 
-    @DisplayName("Test player select heal should return Action equals HEAL and card point 9")
     @Test
-    void testPlayerSelectHeal() throws Exception {
+    public void testComputerSelectHealShouldReturnActionEqualsHealAndCardNinePoint() throws Exception {
         int health = 8;
         int mana = 10;
         int opponentHealth = 15;

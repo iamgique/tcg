@@ -12,31 +12,36 @@ import java.util.List;
 import java.util.Optional;
 
 public class ConsolePlayer implements ChoosePlayer {
+    private String getInput() throws IOException {
+        InputStreamReader inputData = new InputStreamReader(System.in);
+        BufferedReader br = new BufferedReader(inputData);
+        return br.readLine();
+    }
 
     public Select playerSelect(int health, int mana, List<Card> cardInHand, int opponentHealth) {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in, Charset.defaultCharset()));
-
         while (true) {
             try {
-                String input = br.readLine();
+                String input = getInput();
                 String choose = input;
                 Action action = hitOrHeal(input);
+                choose = action.equals(Action.HEAL) ? replaceInputForHeal(input) : choose;
 
-                if (action.equals(Action.HEAL)) {
-                    choose = input.toUpperCase().replace("H", "");
-                }
-
-                if(Integer.parseInt(choose) <= mana && cardInHand.contains(new Card(Integer.parseInt(choose)))) {
-                    return new Select(Optional.of(new Card(Integer.parseInt(choose))), action);
-                } else {
-                    throw new NumberFormatException(input);
-                }
+                return getSelect(mana, cardInHand, input, choose, action);
             } catch (NumberFormatException e) {
                 System.err.println("The input is wrong or mana not enough or empty card in hand your the input is: " + e.getMessage());
             } catch (IOException e) {
                 System.err.println("Error " + e.getMessage());
                 e.printStackTrace();
+                return new Select(Optional.empty(), null);
             }
+        }
+    }
+
+    private Select getSelect(int mana, List<Card> cardInHand, String input, String choose, Action action) {
+        if (Integer.parseInt(choose) <= mana && cardInHand.contains(new Card(Integer.parseInt(choose)))) {
+            return new Select(Optional.of(new Card(Integer.parseInt(choose))), action);
+        } else {
+            throw new NumberFormatException(input);
         }
     }
 
@@ -44,5 +49,7 @@ public class ConsolePlayer implements ChoosePlayer {
         return input.toUpperCase().endsWith("H") ? Action.HEAL : Action.HIT;
     }
 
-
+    private String replaceInputForHeal(String input) {
+        return input.toUpperCase().replace("H", "");
+    }
 }
