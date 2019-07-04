@@ -115,7 +115,7 @@
                     <excludes>
                         <exclude>com/iamgique/tcg/Main*</exclude>
                         <exclude>com/iamgique/tcg/constants/Constant*</exclude>
-                        <!--<exclude>com/iamgique/tcg/model/**</exclude>-->
+                        <exclude>com/iamgique/tcg/model/**</exclude>
                     </excludes>
                 </configuration>
                 <executions>
