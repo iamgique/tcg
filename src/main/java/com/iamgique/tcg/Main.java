@@ -6,9 +6,27 @@ import com.iamgique.tcg.chooser.ConsolePlayer;
 import com.iamgique.tcg.game.Game;
 import com.iamgique.tcg.game.RandomStarterPlayer;
 
-import java.util.Random;
+import java.util.*;
 
 public class Main {
+    /*public static void main(String... args) {
+        StringBuffer cipher = new StringBuffer();
+        ArrayList<String> str = new ArrayList<>(Arrays.asList("w", "w", "s", "t", "d", "a", "a", "d", "i", "e", "r", "f", "f", "l", "i", "t", "z", "z", "z"));
+        recursive(str, cipher);
+    }
+
+    public static void recursive(List c, StringBuffer cipher){
+        System.err.println(c);
+        for(int i = 0; i < c.size() - 1; i++){
+            if(c.get(i).toString().equals(c.get(i+1).toString())){
+                c.remove(i);
+                c.remove(i);
+                recursive(c, cipher);
+            }
+        }
+
+    }*/
+
     public static void main(String... args) {
         new Game(
                 new Player("GIQUE", new ConsolePlayer()),
